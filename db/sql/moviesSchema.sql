@@ -1,11 +1,14 @@
 -- SET UP SCHEMA HERE
 
-CREATE TABLE IF NOT EXISTS favs (
-    id INT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(100) NOT NULL,
-    'image' VARCHAR(200) NULL DEFAULT NULL,
-    rating 
+USE badmovies;
 
-)
+CREATE TABLE IF NOT EXISTS movies (
+    title VARCHAR(100),
+    release_date VARCHAR(200),
+    id INT(6),
+    vote_average FLOAT(8),
+    poster_path VARCHAR(200),
+    PRIMARY KEY (id)
 
---finish ids with actual keys from database
+);
+
