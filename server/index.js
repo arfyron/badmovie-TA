@@ -2,9 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request')
 var app = express();
+var axios = require('axios');
 
 //Helpers
 var apiHelpers = require('./helpers/apiHelpers.js');
+// var getMovies = require('./helpers/apiHelpers.js').getMovies
 
 //Middleware
 app.use(bodyParser.json());
@@ -15,6 +17,10 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //OPTION 1: Use regular routes
 app.get('/search', function(req, res) {
+  var genre = req.query.genre;
+  apiHelpers.getMovies(genre)
+  .then(({data}) => (res.send(data)))
+  .catch((err) => {console.log(err)})
   // get the search genre     
 
   // https://www.themoviedb.org/account/signup
@@ -24,9 +30,17 @@ app.get('/search', function(req, res) {
   // https://api.themoviedb.org/3/discover/movie
 
   // and sort them by horrible votes using the search parameters in the API
+
+  
 });
 
 app.get('/genres', function(req, res) {
+  // console.log(apiHelpers)
+
+  apiHelpers.getGenres()
+  .then((response) => {
+    res.send(response)
+  })
   // make an axios request to get the list of official genres
   
   // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
